@@ -59,7 +59,7 @@ public class Assignment3 {
     }
 
     public static void consecutiveNumber(int number){
-        for(int start = 1 ; start <= number ; start++){
+        for(int start = 1 ; start <= number / 2 ; start++){
             int sum = 0;
             for(int end = start ; end <= number ; end++){
                 sum += end ;
@@ -87,58 +87,64 @@ public class Assignment3 {
     public static void main(String[] args) {
         Constants constant = new Constants();
         Scanner input = new Scanner(System.in);
-        System.out.println(constant.OPERATION_TYPE);
-        System.out.print(constant.OPERATION_NO);
-        String operation = input.nextLine();
+        boolean isQuit = true;
+        while(isQuit){
+            System.out.println(constant.OPERATION_TYPE);
+            System.out.print(constant.OPERATION_NO);
+            String operation = input.nextLine();
 
-        switch (operation) {
-            case "1":
-                while (true) {
-                    try {
-                        System.out.print(constant.ENTER_POSITIVE);
-                        int number = input.nextInt();
-                        input.nextLine(); 
-                        if (number <= 0) {
-                            System.out.println(constant.MUST_POSITIVE);
-                            continue; 
+            switch (operation) {
+                case "1":
+                    while (true) {
+                        try {
+                            System.out.print(constant.ENTER_POSITIVE);
+                            int number = input.nextInt();
+                            input.nextLine(); 
+                            if (number <= 0) {
+                                System.out.println(constant.MUST_POSITIVE);
+                                continue; 
+                            }
+                            System.out.print(constant.OUTPUT);
+                            digitSumLoop(number);
+                            break; 
+                        } catch (InputMismatchException e) {
+                            System.out.println(constant.INVALID_INPUT_INTEGER);
+                            input.next(); 
                         }
-                        System.out.print(constant.OUTPUT);
-                        digitSumLoop(number);
-                        break; 
-                    } catch (InputMismatchException e) {
-                        System.out.println(constant.INVALID_INPUT_INTEGER);
-                        input.next(); 
                     }
-                }
-                break;
-        
-            case "2":
-                System.out.print(constant.ENTER_STRING);
-                String str = input.nextLine();
-                char[] chars = str.toCharArray();
-                System.out.println(constant.OUTPUT);
-                combine(chars, 0, "");
-                break;
-
-            case "3" :
-            while (true) {
-                try {
-                    System.out.print(constant.ENTER_POSITIVE);
-                    int number = input.nextInt();
-                    input.nextLine(); 
-                    if (number <= 0) {
-                        System.out.println(constant.MUST_POSITIVE);
-                        continue; 
-                    }
+                    break;
+            
+                case "2":
+                    System.out.print(constant.ENTER_STRING);
+                    String str = input.nextLine();
+                    char[] chars = str.toCharArray();
                     System.out.println(constant.OUTPUT);
-                    consecutiveNumber(number);
-                    break; 
-                } catch (InputMismatchException e) {
-                    System.out.println(constant.INVALID_INPUT_INTEGER);
-                    input.next(); 
-                }
+                    combine(chars, 0, "");
+                    break;
+
+                case "3" :
+                    while (true) {
+                        try {
+                            System.out.print(constant.ENTER_POSITIVE);
+                            int number = input.nextInt();
+                            input.nextLine(); 
+                            if (number <= 0) {
+                                System.out.println(constant.MUST_POSITIVE);
+                                continue; 
+                            }
+                            System.out.println(constant.OUTPUT);
+                            consecutiveNumber(number);
+                            break; 
+                        } catch (InputMismatchException e) {
+                            System.out.println(constant.INVALID_INPUT_INTEGER);
+                            input.next(); 
+                        }
+                    }
+                    break;
+                case "0" :
+                    isQuit = false;
+                    break ;
             }
-            break;
         }
         input.close();
     }
